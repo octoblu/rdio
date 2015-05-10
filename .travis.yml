@@ -1,0 +1,11 @@
+language: shell
+deploy:
+- provider: s3
+  access_key_id: AKIAIT4X4NDGM2WVL6VA
+  secret_access_key: &1
+    secure: "Q6vAZxGhTZ6TbeI2P3IfEgbz113WyxyBK05jVH8fu4zNSZMhMdgcGdoIsqdxPCjeaD3hm5UPWSy5h5FkYwSMlPZx7/Dszkcuxm13KZQAjN324Y/z5ZRmNNd7wSCriiD/1ZKvgYXXf9OTEljxhQWXS4qJlqpb/I0KO57iaxKpyQuQCH9zgYXfHhgw8PI++U0uPnkwtXvYbT7w59NX5NEvFIGxANoxOEfdN1WZ87bGhegJG3DqX6w/SROnBGIh0PlsEMjeG3FVysbc5J7+PvAwmw3jdsnNX19M7ylRI96wWuOKarTz7rX5CVS3QZE90RRnWOMlpdwXpeQAFXEldkYz/5vJ0G0JeQNX+gEnedw1bCM7kLGcy5Hd8H41HLQ/Dm6RREp8P7ufAWYzCC8F2Ndx4icb36ztkPlzKa1qx8i5kYtTGDGWHne+EY7RnEjiLwP/C5Ucyhm6L/i/IVK8DzZWmB2emYtlpYrDwh/KQfOV5fShcNt0MRGH+BFGSS0c/zI97bIp0xlyyibAEmoJai34q/+h6WKCvzF0cnWMaXOo/1QpUaOlM3hILQliTmcLXJG6oiv+8I+/Eo8KyJfgjBQDj28It5niokql1HfBiJhpetxoRLXxEDum0FCM3pw5C+nBG+Dm87uY/babsh6G7SXdLPcAov6ukOGcXD8yMzwBzPM="
+  bucket: rdio.octoblu.com
+  endpoint: rdio.octoblu.com.s3-website-us-west-2.amazonaws.com
+  region: us-west-2
+  on:
+    branch: master
