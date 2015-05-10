@@ -11,11 +11,21 @@ connection.on('ready', function(data){
     console.log(message.topic, message);
     if (message.topic === 'add-playback-token') {
       $('#api').rdio(message.payload.token);
+      return;
     }
 
     if (message.topic === 'play') {
-      $('#api').rdio().play(message.payload.key);
-      $('#api').rdio().setVolume(1);
+      if (message.payload.key) {
+        $('#api').rdio().play(message.payload.key);
+        $('#api').rdio().setVolume(1);
+        return;
+      }
+      $('#api').rdio().play();
     }
+
+    if (message.topic === 'pause') {
+      $('#api').rdio().pause();
+    }
+
   });
 });

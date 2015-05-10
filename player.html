@@ -11,58 +11,34 @@
   <script type="text/javascript">
     var duration = 1; // track the duration of the currently playing track
     $(document).ready(function() {
-      console.log('document.ready');
       $('#api').bind('ready.rdio', function() {
         console.log('rdio ready');
       });
-      $('#api').bind('volumeChanged.rdio', function(test, volume){
-        console.log('volumeChanged to', + volume)
-      })
+      $('#api').bind('playStateChanged.rdio', function(event, playState) {
+        $('#art').attr('playState', playState.toString());
+      });
       $('#api').bind('playingTrackChanged.rdio', function(e, playingTrack, sourcePosition) {
         if (playingTrack) {
           duration = playingTrack.duration;
           $('#art').attr('src', playingTrack.icon);
-          $('#track').text(playingTrack.name);
-          $('#album').text(playingTrack.album);
-          $('#artist').text(playingTrack.artist);
         }
         });
       $('#api').bind('positionChanged.rdio', function(e, position) {
         $('#position').css('width', Math.floor(100*position/duration)+'%');
       });
-      $('#api').bind('playStateChanged.rdio', function(e, playState) {
-        if (playState == 0) { // paused
-          $('#play').show();
-          $('#pause').hide();
+      $('#art').click(function(event) {
+        event.preventDefault()
+        if ($('#art').attr('playState') == "0") {
+          $('#api').rdio().play();
         } else {
-          $('#play').hide();
-          $('#pause').show();
+          $('#api').rdio().pause();
         }
       });
-      // this is a valid playback token for localhost.
-      // but you should go get your own for your own domain.
-      $('#previous').click(function() { $('#api').rdio().previous(); });
-      $('#play').click(function() { $('#api').rdio().play(); });
-      $('#pause').click(function() { $('#api').rdio().pause(); });
-      $('#next').click(function() { $('#api').rdio().next(); });
     });
   </script>
   <div id="api"></div>
-  <img id="art" src="" height="200" width="200" style="float:left;margin-right:20px;">
-  <div>
-    <div><b>Track: </b><span id="track"></span></div>
-    <div><b>Album: </b><span id="album"></span></div>
-    <div><b>Artist: </b><span id="artist"></span></div>
-    <div><b>Position: </b>
-      <span style="display:inline-block;width:200px;border:1px solid black;">
-        <span id="position" style="display:inline-block;background-color:#666">&nbsp;</span>
-      </span></div>
-    <div>
-      <button id="previous">&lt;&lt;</button>
-      <button id="play">|&gt;</button>
-      <button id="pause">||</button>
-      <button id="next">&gt;&gt;</button>
-    </div>
+  <div id="art-container">
+    <img id="art" src="http://fillmurray.com/1024/768" height="100%">
   </div>
 </body>
 </html>
