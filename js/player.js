@@ -6,8 +6,16 @@ var connection = meshblu.createConnection({
 });
 
 connection.on('ready', function(data){
-  console.log('ready');
+  console.log('ready', data);
   connection.on('message', function(message){
+    console.log(message.topic, message);
+    if (message.topic === 'add-playback-token') {
+      $('#api').rdio(message.payload.token);
+    }
 
+    if (message.topic === 'play') {
+      $('#api').rdio().play(message.payload.key);
+      $('#api').rdio().setVolume(1);
+    }
   });
 });
